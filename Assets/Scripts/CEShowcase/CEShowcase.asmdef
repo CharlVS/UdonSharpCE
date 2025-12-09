@@ -1,22 +1,16 @@
 {
-    "name": "UdonSharp.CE.Editor",
+    "name": "CEShowcase",
     "references": [
-        "UdonSharp.CE.Runtime",
-        "UdonSharp.Editor",
         "UdonSharp.Runtime",
+        "UdonSharp.CE.Runtime",
         "VRC.Udon",
-        "VRC.Udon.Editor"
+        "Unity.TextMeshPro"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "Microsoft.CodeAnalysis.dll",
-        "Microsoft.CodeAnalysis.CSharp.dll",
-        "System.Collections.Immutable.dll",
         "VRCSDKBase.dll",
         "VRCSDK3.dll"
     ],
@@ -25,3 +19,4 @@
     "versionDefines": [],
     "noEngineReferences": false
 }
+
