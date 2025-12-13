@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+
+# UdonSharpCE Project Context
+
+UdonSharpCE is a custom fork of UdonSharp maintained by us. As the developers, we can make changes to the compiler and tooling as needed.
+
+## Priorities
+
+- **Developer Experience (DevEx)**: Prioritize clean, intuitive APIs and helpful error messages
+- **C# Parity**: Provide a simple, abstracted experience that stays close to standard C# conventions and patterns
+- **Maintainability**: We own this fork—prefer proper fixes over workarounds

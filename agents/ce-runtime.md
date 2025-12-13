@@ -104,6 +104,37 @@ These are C# patterns the UdonSharp compiler doesn't support — you never need 
 - Avoid cross-behaviour calls in tight loops
 - No `goto`, no reflection, no dynamic types
 
+**Action → CECallback Transformation:**
+UdonSharp transforms `Action` delegates to `CECallback` structs at compile time. This affects how you write code that uses Actions:
+```csharp
+// ❌ Bad - ?. operator doesn't work on structs after transformation
+public void OnCompleted(Action continuation)
+{
+    continuation?.Invoke();  // CS0023: Operator '?' cannot be applied to CECallback
+}
+
+// ✅ Good - .Invoke() works for both Action and CECallback
+public void OnCompleted(Action continuation)
+{
+    continuation.Invoke();  // Works before AND after transformation
+}
+```
+
+**Preserving Action for Interface Compliance:**
+When implementing BCL interfaces that require `Action` parameters (like `INotifyCompletion`), use `[CEPreserveAction]` to prevent the transformation:
+```csharp
+// ✅ Good - prevents Action → CECallback transformation
+[CEPreserveAction]
+public struct UdonTaskAwaiter : INotifyCompletion
+{
+    public void OnCompleted(Action continuation)  // Action is preserved!
+    {
+        continuation.Invoke();
+    }
+}
+```
+This is critical for compile-time infrastructure like awaiters that the C# compiler inspects but that get transformed away before Udon runtime.
+
 ## Boundaries
 - ✅ **Always:** Write pure C#, follow UdonSharp's C# subset, add XML documentation, use defensive null checks
 - ⚠️ **Ask first:** Adding new modules, changing public APIs, modifying collection internals
